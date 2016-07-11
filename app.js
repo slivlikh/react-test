@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var config = require('./libs/config');
-var stylus = require('stylus');
 var routes = require('./routes/index');
 var api = require('./routes/api');
 
@@ -21,14 +20,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-/*
-app.use(stylus.middleware({
-  src: process.cwd() + '/resources/stylus/',
-  dest: process.cwd() + '/public/stylesheets/',
-  debug: true,
-  force: true
-}));
-*/
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
