@@ -1,5 +1,5 @@
 {
-  "name": "webbylab",
+  "name": "react-test",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -15,8 +15,7 @@
     "multer": "^1.1.0",
     "mysql": "^2.11.1",
     "nconf": "^0.8.4",
-    "serve-favicon": "~2.3.0",
-    "stylus": "0.54.5"
+    "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.9.2"
