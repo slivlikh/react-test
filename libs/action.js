@@ -48,15 +48,26 @@ var action = {
 		});
 	},
 	searchFilmName: function(searchText, callback){
-		searchText = searchText.trim();
+		searchTextArr = searchText.trim().split(" ").filter(function(val){
+			if(val.trim() === ""){
+				return false;
+			}
+			return true;
+		});
+		searchText = searchTextArr.join(" ");
 		connection.query("SELECT `name_film`, `film_id` FROM `films` WHERE `name_film`=?", [searchText], function(err, rows, fields) {
 			if(err) { callback(err); return }
 			callback(undefined, rows);
 		});
 	},
 	searchActor: function(searchText, callback){
-		searchText = searchText.trim();
-		searchTextArr = searchText.split(" ");
+		searchTextArr = searchText.trim().split(" ").filter(function(val){
+			if(val.trim() === ""){
+				return false;
+			}
+			return true;
+		});
+		searchText = searchTextArr.join(" ");
 		if(searchTextArr.length > 1){
 			var query = "SELECT `name_film`, films.film_id FROM  `films` INNER JOIN  `relation_actor_film` ON films.film_id = relation_actor_film.film_id INNER JOIN  `actors` ON actors.actor_id = relation_actor_film.actor_id  WHERE actors.actor_name=?";
 			var params = [searchText];
