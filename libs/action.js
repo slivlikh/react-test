@@ -54,7 +54,7 @@ var action = {
 			}
 			return true;
 		});
-		searchText = searchTextArr.join(" ");
+		searchText = searchTextArr.join(" ").trim();
 		connection.query("SELECT `name_film`, `film_id` FROM `films` WHERE `name_film`=?", [searchText], function(err, rows, fields) {
 			if(err) { callback(err); return }
 			callback(undefined, rows);
@@ -67,7 +67,7 @@ var action = {
 			}
 			return true;
 		});
-		searchText = searchTextArr.join(" ");
+		searchText = searchTextArr.join(" ").trim();
 		if(searchTextArr.length > 1){
 			var query = "SELECT `name_film`, films.film_id FROM  `films` INNER JOIN  `relation_actor_film` ON films.film_id = relation_actor_film.film_id INNER JOIN  `actors` ON actors.actor_id = relation_actor_film.actor_id  WHERE actors.actor_name=?";
 			var params = [searchText];
