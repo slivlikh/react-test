@@ -209,7 +209,6 @@ var SearchForm = React.createClass({
 		var searchInputValue = this.refs.searchInput.value;
 		if(this.props.search == "film"){
 			var url = './api/searchfilmname?searchtext='+encodeURIComponent(searchInputValue);
-			alert(url);
 		}else if(this.props.search == "actor"){
 			var url = './api/searchactor?searchtext='+encodeURIComponent(searchInputValue);
 		}
@@ -297,6 +296,9 @@ var ReactApp = React.createClass({
   			     }
   			     if(allFilms.empty){
   			     	this.setState({status: allFilms.empty});
+  			     }
+  			     if(allFilms.error){
+  			     	this.setState({status: allFilms.error});
   			     }
   			     if(allFilms.message){
   			     	this.setState({displayFilmList: allFilms.message});

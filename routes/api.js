@@ -6,7 +6,11 @@ var action = require('../libs/action');
 router
 	.get('/getallfilms', function(req, res){
 		action.getAllFilms(function(err, rows){
-			if(err) res.send(JSON.stringify({error: "Произошла ошибка"}));
+			if(err || typeof rows === undefined){
+				console.log(123);
+				 res.send(JSON.stringify({error: "Произошла ошибка"}));
+				 return;
+			}
 			if(rows.length == 0){  
 				res.send(JSON.stringify({empty: "Фильмов нет"})); 
 				return; 
@@ -16,7 +20,10 @@ router
 	})
 	.get('/moreinfo/:id', function(req, res){
 		action.moreInfo(req.params.id, function(err, rows){
-			if(err) res.send(JSON.stringify({error: "Произошла ошибка"}));
+			if(err || typeof rows === undefined){
+				 res.send(JSON.stringify({error: "Произошла ошибка"}));
+				 return;
+			}
 			if(rows.length === 0){
 				res.send(JSON.stringify({empty: "Фильма нет"}));
 			}else{
@@ -28,7 +35,7 @@ router
 	.get('/searchfilmname/', function(req, res){
 		var searchText  = decodeURIComponent(req.param('searchtext'));
 		action.searchFilmName(searchText, function(err, rows){
-			if(err) { res.send(JSON.stringify({error: "ok"})); } 
+			if(err) { res.send(JSON.stringify({error: "ok"})); return; } 
 			if(rows.length == 0){
 				res.send(JSON.stringify({empty: "Поиск не дал результатов"}));
 			}else{
@@ -39,7 +46,7 @@ router
 	.get('/searchactor/', function(req, res){
 		var searchText  = decodeURIComponent(req.param('searchtext'));
 		action.searchActor(searchText, function(err, rows){
-			if(err) { res.send(JSON.stringify({error: "ok"})); }
+			if(err) { res.send(JSON.stringify({error: "ok"})); return; }
 			if(rows.length == 0){
 				res.send(JSON.stringify({empty: "Поиск не дал результатов"}));
 			}else{
@@ -50,7 +57,7 @@ router
 	})
 	.delete('/deletefilm/:id', function(req, res){
 		action.deleteFilm(req.params.id, function(err, rows){
-			if(err){ res.send(JSON.stringify({error: "Произошла ошибка"})); }
+			if(err){ res.send(JSON.stringify({error: "Произошла ошибка"})); return; }
 			if(rows.affectedRows == 0){
 				res.send(JSON.stringify({empty: "Фильм для удаления не найден"}));	
 			}else{
@@ -61,7 +68,7 @@ router
 	.put('/addnew', function(req, res){
 		var newFilm = req.body.message;
 		action.addNew(newFilm.nameFilm, newFilm.yearFilm, newFilm.format, newFilm.actors, function(err, status){
-			if(err) { res.status(200).json({status: 'error'}); return }
+			if(err) { res.status(200).json({status: 'error'}); return; }
 			if(status === "duplicate"){
 				res.status(200).json({status: 'duplicate'});
 			}else if(status === "ok"){
