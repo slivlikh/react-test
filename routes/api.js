@@ -78,10 +78,13 @@ router
 	})
 	.put('/sendfile', upload.single('myfile'), function(req, res){
   		action.sendfile(req, function(err, status){
-  			if(err) { res.status(200).json({status: 'error'}); return; }
-  			if(status === "ok"){
-				res.status(200).json({status: 'ok'});
-			}
+  			if(err){ 
+  				res.status(200).json({status: 'error'}); return; 
+  			}else{
+  				if(status === "ok"){
+					res.status(200).json({status: 'ok'});
+				}
+  			}
   		});
 	})
 

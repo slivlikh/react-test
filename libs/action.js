@@ -127,12 +127,15 @@ var action = {
     						AllFilms.push(filmObj);
     					}
     			}
+    			var error = false;
     			for(var i = 0; AllFilms.length > i; i++){
     				(function(i){
     						action.addNew(AllFilms[i].Title, AllFilms[i]['Release Year'], AllFilms[i].Format, AllFilms[i].Stars, function(err, status){
-    							if(err) { callback(err); return; }
-    							if(i === AllFilms.length-1){
-    								callback(undefined, "ok");
+    							if(!error){
+    								if(err) { callback(err); error = true; return; }
+    								if(i === AllFilms.length-1){
+    									callback(undefined, "ok");
+    								}
     							}
     						});
     				}(i));
