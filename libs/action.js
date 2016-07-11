@@ -48,17 +48,26 @@ var action = {
 		});
 	},
 	searchFilmName: function(searchText, callback){
+		searchText = searchText.trim();
 		connection.query("SELECT `name_film`, `film_id` FROM `films` WHERE `name_film`=?", [searchText], function(err, rows, fields) {
 			if(err) { callback(err); return }
 			callback(undefined, rows);
 		});
 	},
 	searchActor: function(searchText, callback){
-		connection.query("SELECT `name_film`, films.film_id FROM  `films` INNER JOIN  `relation_actor_film` ON films.film_id = relation_actor_film.film_id INNER JOIN  `actors` ON actors.actor_id = relation_actor_film.actor_id  WHERE actors.actor_name=?", [searchText], function(err, rows, fields) {
-			if(err) { callback(err); return; }
-			console.log(rows);
-			callback(undefined, rows);
-		});
+		searchText = searchText.trim();
+		searchTextArr = searchText.split(" ");
+		if(searchTextArr.length > 1){
+			var query = "SELECT `name_film`, films.film_id FROM  `films` INNER JOIN  `relation_actor_film` ON films.film_id = relation_actor_film.film_id INNER JOIN  `actors` ON actors.actor_id = relation_actor_film.actor_id  WHERE actors.actor_name=?";
+			var params = [searchText];
+		}else{
+			var query = "SELECT `name_film`, films.film_id FROM  `films` INNER JOIN  `relation_actor_film` ON films.film_id = relation_actor_film.film_id INNER JOIN  `actors` ON actors.actor_id = relation_actor_film.actor_id  WHERE (actors.actor_name LIKE ? OR actors.actor_name LIKE ? OR actors.actor_name LIKE ?)";
+			var params = ['% '+searchText+' %', searchText+' %', '% '+searchText];
+		}
+			connection.query(query, params, function(err, rows, fields) {
+				if(err) { callback(err); return; }
+				callback(undefined, rows);
+			});
 	},
 	deleteFilm: function(id, callback){
 		connection.query('DELETE  FROM `films` WHERE `film_id`='+id, function(err, rows, fields) {

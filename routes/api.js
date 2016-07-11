@@ -82,7 +82,7 @@ router
   				res.status(200).json({status: 'error'}); return; 
   			}else{
   				if(status === "ok"){
-					res.status(200).json({status: 'ok'}) ;
+					res.status(200).json({status: 'ok'});
 				}
   			}
   		});
