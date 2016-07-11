@@ -5,7 +5,8 @@ var db_config = {
     host     : config.get('mysql:host'),
     user     : config.get('mysql:db_user'),
     password : config.get('mysql:db_pass'),
-    database : config.get('mysql:db_name')
+    database : config.get('mysql:db_name'),
+    port: config.get('mysql:port')
 };
 
 

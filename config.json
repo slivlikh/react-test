@@ -4,6 +4,7 @@
         "host": "localhost",
         "db_user":"root2",
         "db_name":"webby-lab",
-        "db_pass":"123"
+        "db_pass":"123",
+        "port": "3306"
     }
 }

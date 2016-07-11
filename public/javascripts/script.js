@@ -195,7 +195,6 @@ var SearchForm = React.createClass({
 			alert(url);
 		}else if(this.props.search == "actor"){
 			var url = './api/searchactor?searchtext='+encodeURIComponent(searchInputValue);
-			alert(url);
 		}
 		var req = new XMLHttpRequest();
 		req.open('GET', url, true);
