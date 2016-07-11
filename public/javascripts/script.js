@@ -264,7 +264,6 @@ var ReactApp = React.createClass({
 		};
 	},
 	setNewFilmsList: function(newFilmsList){
-		//console.log(newFilmsList);
 		this.setState({displayFilmList: newFilmsList});
 	},
 	showAllFilms: function(){
