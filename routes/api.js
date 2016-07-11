@@ -61,7 +61,7 @@ router
 	.put('/addnew', function(req, res){
 		var newFilm = req.body.message;
 		action.addNew(newFilm.nameFilm, newFilm.yearFilm, newFilm.format, newFilm.actors, function(err, status){
-			if(err) { throw err; res.status(200).json({status: 'error'}); }
+			if(err) { res.status(200).json({status: 'error'}); return }
 			if(status === "duplicate"){
 				res.status(200).json({status: 'duplicate'});
 			}else if(status === "ok"){

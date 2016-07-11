@@ -3,10 +3,22 @@ var AddNewFilm = React.createClass({
 		return {
 			 status: "",
 			 format: "VHS",
+			 nameFilm: "",
+			 yearFilm: "",
+			 actors: ""
 		};
 	},
 	clickRadio: function(e){
 		this.setState({format: e.target.value});
+	},
+	changeNameFilm: function(e){
+		this.setState({nameFilm: e.target.value});
+	},
+	changeActors: function(e){
+		this.setState({actors: e.target.value});	
+	},
+	changeYearFilm: function(e){
+		this.setState({yearFilm: e.target.value});	
 	},
 	addNewFilm: function(){
 		var refs = this.refs;
@@ -36,7 +48,12 @@ var AddNewFilm = React.createClass({
   				     	if(anser.status === 'duplicate'){
   				     		this.setState({status: "Этот фильм уже есть"});
   				     	}else if(anser.status === 'ok'){
-  				     		this.setState({status: "Фильм успешно добавлен"});
+  				     		this.setState({
+  				     			status: "Фильм успешно добавлен", 
+  				     			nameFilm: "",
+			 					yearFilm: "",
+			 					actors: ""
+			 				});
   				     	}else if(anser.status === 'error'){
   				     		this.setState({status: "Произошла ошибка"});
   				     	}
@@ -57,15 +74,15 @@ var AddNewFilm = React.createClass({
 				<h3> Добавить новый фильм </h3>
 				<p>Введите название фильма</p>
 				<form action=""  type="POST" onSubmit={this.submit}>
-				<input required type="text" ref="nameFilm" name="nameFilm" />
+				<input required  value={this.state.nameFilm} onChange={this.changeNameFilm}  type="text" ref="nameFilm" name="nameFilm" />
 				<p>Введите год выпуска</p>
-				<input required type="number" ref="yearFilm" name="yearFilm" />
+				<input required type="number" onChange={this.changeYearFilm} value={this.state.yearFilm} ref="yearFilm" name="yearFilm" />
 				<p>Выберете тип носителя</p>
 				<label for="vhs"><input type="radio" onChange={this.clickRadio} name="format" id="vhs"  value="VHS" defaultChecked  />VHS</label>
 				<label for="dvd"><input type="radio" onChange={this.clickRadio} name="format" id="dvd" value="DVD" />DVD</label>
 				<label for="blue-ray"><input type="radio" onChange={this.clickRadio} name="format" id="blue-ray" value="Blue Ray" />Blue Ray</label>
 				<p>Введите список актеров через запятую</p>
-				<textarea required ref="actors" name="actors"></textarea>
+				<textarea value={this.state.actors} onChange={this.changeActors} required ref="actors" name="actors"></textarea>
 				<button className="btn btn-success" onClick={this.addNewFilm}>Отправить</button>
 				</form>
 				<p>{this.state.status}</p>
