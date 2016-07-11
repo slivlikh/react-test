@@ -9,7 +9,11 @@ function dbError(){
 		  	connection = db();
 			dbError(); 
 		} else {
-		  throw err; 
+			try{
+				throw err;
+			}catch(e){
+				console.log(e);
+			}
 		}
 	});
 }
@@ -107,9 +111,9 @@ var action = {
 	sendfile: function(req, callback){
 		var AllFilms = [];
 		fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err){
-    		if(err) throw err;
+    		if(err){callback(err); return; }
     		fs.readFile(req.file.destination+req.file.originalname, 'utf8', function(err, contents) {
-    			if(err) throw err;
+    			if(err){callback(err); return; }
     			var contentsArr = contents.split('\n\n');
     			for(var i = 0; contentsArr.length > i; i++){
     				var oneFilmArr = contentsArr[i].split('\n');
