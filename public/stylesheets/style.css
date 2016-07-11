@@ -1,0 +1,39 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+.filmsTable{
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+}
+.filmsTable tr:nth-child(2n){
+	background-color: lightgray;
+}
+.filmsTable td {
+	padding: 5px 2.5px; 
+}
+.filmsTable__id {
+	width: 7%;
+}
+.filmsTable__name {
+	width: 25%;
+}
+.filmsTable__year {
+	width: 10%;
+}
+.filmsTable__format {
+	width: 7%;
+}
+.filmsTable__actors {
+	width: 35%;
+}
+.filmsTable__do {
+	width: 15%;
+}
+.searchInput {
+	width:190px;
+}

@@ -1,0 +1,9 @@
+{
+    "port" : 3000,
+    "mysql": {
+        "host": "localhost",
+        "db_user":"root2",
+        "db_name":"webby-lab",
+        "db_pass":"123"
+    }
+}
